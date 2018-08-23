@@ -3,7 +3,7 @@ import * as request from 'request';
 
 export class http {
 
-    static get = (url: string, queryParamsObject: any = {}): Promise<Object> => {
+    static get = (url: string, queryParamsObject: any = {}): Promise<any> => {
         return new Promise((resolve, reject) => {
             try {
 
