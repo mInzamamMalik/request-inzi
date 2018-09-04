@@ -53,12 +53,12 @@ export class http {
                 if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
 
                     let responseBody = response.body;
-                    console.log("http post success, url: ", url, "request body: ", jsonBody, "responseBody: ", responseBody);
+                    console.log("http post success, url: ", url, "headers:", headers, "request body: ", jsonBody, "responseBody: ", responseBody);
 
                     resolve(responseBody)
 
                 } else {
-                    console.log("http post error, url: ", url, "body: ", jsonBody, error, response.statusCode);
+                    console.log("http post error, url: ", url, "headers:", headers, "body: ", jsonBody, error, response.statusCode);
                     reject(response.statusCode)
                 }
             })
