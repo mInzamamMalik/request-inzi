@@ -39,10 +39,15 @@ export class http {
         })
     }
 
-    static post = (url: string, jsonBody: any): Promise<any> => {
+    static post = (url: string, jsonBody: Object, headers: Object = {}): Promise<any> => {
         return new Promise((resolve, reject) => {
 
-            request.post({ url: url, json: jsonBody }, function (error, response, body) {
+            request.post({
+                url: url,
+                json: jsonBody,
+                headers: Object.assign(headers, { 'Content-Type': 'application/json' })
+
+            }, function (error, response, body) {
 
                 //checking if response was success
                 if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
