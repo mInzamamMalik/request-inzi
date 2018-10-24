@@ -3,8 +3,8 @@ import * as request from 'request';
 
 export class http {
 
-    static get = (url: string, queryParamsObject: any = {}): Promise<any> => {
-        return new Promise((resolve, reject) => {
+    static get = (url: string, queryParamsObject: any = {}, headers: Object = {}): Promise<any> => {
+         return new Promise((resolve, reject) => {
             try {
 
                 let query = "";
@@ -16,12 +16,15 @@ export class http {
                         query += `${eachParam}=${queryParamsObject[eachParam]}&`
                     })
                 }
-                query = query.slice(0, -1)// removing & from last
+                query = query.slice(0, -1)// removing & from lastS
 
                 //making request
-                request.get({ url: url + query }, function (error, response, body) {
+                request.get({
+                    url: url + query,
+                    headers: headers
+                }, function (error, response, body) {
 
-                    //checking if response was success
+                   //checking if response was success
                     if (!error && response.statusCode == 200) {
                         let responseBody = JSON.parse(response.body)
 
@@ -29,7 +32,7 @@ export class http {
                         resolve(responseBody)
 
                     } else {
-                        console.log("http get error, url: ", url, error);
+                        console.log("http get error - url: ", url+query, error);
                         reject(response.statusCode)
                     }
                 })
